@@ -10,15 +10,29 @@ def listarProdutos():
 
 
 def adicionarProduto (produto):
-    produtos.append
-    return true
+    produtos.append(produto)
+    return True
 
 
 def buscarProduto (nome_produto):
     for p in range (len (produtos)):
-        if produtos [n]["nome"] == nome_produto:
+        if produtos [p]["nome"] == nome_produto:
             return p
-        return None
+    return None    
+
+def atualizarProduto (indice, produto):
+    if indice >=0 and indice < len (produtos):
+        produtos [indice] = produto
+        return True
+    return False
+
+def removerProduto (indice):
+     if indice >=0 and indice < len (produtos):
+         produtos.pop(indice)
+         return True
+     return False
+     
+        
 
 
 
