@@ -1,32 +1,45 @@
 VALOR_MINIMO_DEPOSITO = 1.0
 
-
-def depositar(saldo, valor):
-    if valor < VALOR_MINIMO_DEPOSITO:
+def depositar(saldo, valor, extrato):
+    if valor <= 0:
         print("Valor inválido para depósito")
-        return saldo
+        return saldo, extrato
 
     saldo += valor
-    print("Depósito realizado!")
-    return saldo
+    extrato += f"Depósito: R$ {valor:.2f}\n"
+    print("Depósito realizado com sucesso!")
+    print(f"Saldo atual: R$ {saldo:.2f}")
+    return saldo, extrato
 
 
-def sacar(saldo, valor):
+def sacar(saldo, valor, extrato):
+    if valor <= 0:
+        print("Valor inválido para saque")
+        return saldo, extrato
+
     if valor > saldo:
-        print("Saldo insuficiente")
-        return saldo
+        print("Saldo insuficiente para realizar o saque.")
+        return saldo, extrato
 
     saldo -= valor
-    print("Saque realizado!")
-    return saldo
+    extrato += f"Saque: R$ {valor:.2f}\n"
+    print("Saque realizado com sucesso!")
+    print(f"Saldo atual: R$ {saldo:.2f}")
+    return saldo, extrato
 
 
-def mostrar_extrato(saldo):
-    print(f"\nSaldo atual: R$ {saldo:.2f}")
+def mostrar_extrato(saldo, extrato):
+    print("\n===== EXTRATO =====")
+    if extrato == "":
+        print("Não há movimentações.")
+    else:
+        print(extrato)
 
+    print(f"Saldo atual: R$ {saldo:.2f}")
 
 
 saldo = 0.0
+extrato = ""
 opcao = None
 
 while opcao != "0":
@@ -39,14 +52,14 @@ while opcao != "0":
 
     if opcao == "1":
         valor = float(input("Valor: "))
-        saldo = depositar(saldo, valor)
+        saldo, extrato = depositar(saldo, valor, extrato)
 
     elif opcao == "2":
         valor = float(input("Valor: "))
-        saldo = sacar(saldo, valor)
+        saldo, extrato = sacar(saldo, valor, extrato)
 
     elif opcao == "3":
-        mostrar_extrato(saldo)
+        mostrar_extrato(saldo, extrato)
 
     elif opcao == "0":
         print("Saindo...")
